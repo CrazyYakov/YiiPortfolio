@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "portfolio".
@@ -82,5 +84,31 @@ class Portfolio extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                // если вместо метки времени UNIX используется datetime:
+                // 'value' => new Expression('NOW()'),
+            ],
+            [
+                'class' => app\models\Image::class,
+                
+            ],  
+            // [
+            //     'class' => BlameableBehavior::class,
+            //     'createdByAttribute' => 'user_id',
+            //     'updatedByAttribute' => false,
+            //     'attributes' => [
+            //         ActiveRecord::EVENT_BEFORE_VALIDATE => ['user_id'] // If usr_id is required
+            //     ]
+            // ],
+        ];
     }
 }
