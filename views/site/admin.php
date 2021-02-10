@@ -10,7 +10,7 @@ $this->title = 'Admin';
 $this->params['breadcrumbs'][] = [
 
     'label' => $this->title,
-    'url' => Url::toRoute($this->title),
+    'url' => Url::toRoute('admin'),
     //'template' => "<li>{link}</li>\n", // template for this link only
 
 ];
