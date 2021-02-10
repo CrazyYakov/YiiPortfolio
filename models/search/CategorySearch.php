@@ -18,7 +18,7 @@ class CategorySearch extends Category
     {
         return [
             [['id', 'state', 'user_id', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'description', 'parent.name'], 'safe'],
+            [['name', 'description', 'parent.name'], 'safe'],            
         ];
     }
 
@@ -61,13 +61,18 @@ class CategorySearch extends Category
             'id' => $this->id,
             'parent_id' => $this->parent_id,
             'state' => $this->state,
-            'user_id' => $this->user_id,
+            'categories.user_id' => $this->user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ]);
         
+        $query->leftJoin('categories parent', 'parent.id = categories.parent_id')->all();
+        
+        
+
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'parent.name', $this->getAttribute('parent.name')]);
 
         //$query->andFilterWhere(['like', 'parent.name', $this->getAttribute('parent.name')]);
 
