@@ -39,7 +39,7 @@ class Portfolio extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'created_at', 'updated_at'], 'required'],
-            [['category_id', 'image_id', 'state', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'state', 'created_at', 'updated_at'], 'integer'],
             [['description'], 'string'],
             [['name', 'link'], 'string', 'max' => 255],
             [['name'], 'unique'],
@@ -97,10 +97,6 @@ class Portfolio extends \yii\db\ActiveRecord
                 // если вместо метки времени UNIX используется datetime:
                 // 'value' => new Expression('NOW()'),
             ],
-            [
-                'class' => app\models\Image::class,
-                
-            ],  
             // [
             //     'class' => BlameableBehavior::class,
             //     'createdByAttribute' => 'user_id',
