@@ -16,7 +16,7 @@ class m210201_070030_create_images_table extends Migration
             'id' => $this->primaryKey(),
             'type' => $this->string(25)->notNull(),
             'size' => $this->string(25)->notNull(),
-            'image' => $this->binary(),
+            'image' => $this->binary(4294967295),
             'name' => $this->string(50),
             'user_id' => $this->integer(),
         ]);
