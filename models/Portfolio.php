@@ -38,12 +38,11 @@ class Portfolio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'created_at', 'updated_at'], 'required'],
+            [['name'], 'required'],
             [['category_id', 'state', 'created_at', 'updated_at'], 'integer'],
             [['description'], 'string'],
             [['name', 'link'], 'string', 'max' => 255],
-            [['name'], 'unique'],
-            [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::class, 'targetAttribute' => ['image_id' => 'id']],
+            [['name'], 'unique'],        
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
@@ -94,17 +93,8 @@ class Portfolio extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
-                // если вместо метки времени UNIX используется datetime:
-                // 'value' => new Expression('NOW()'),
+
             ],
-            // [
-            //     'class' => BlameableBehavior::class,
-            //     'createdByAttribute' => 'user_id',
-            //     'updatedByAttribute' => false,
-            //     'attributes' => [
-            //         ActiveRecord::EVENT_BEFORE_VALIDATE => ['user_id'] // If usr_id is required
-            //     ]
-            // ],
         ];
     }
 }
