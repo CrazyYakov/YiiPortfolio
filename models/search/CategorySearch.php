@@ -58,20 +58,20 @@ class CategorySearch extends Category
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'parent_id' => $this->parent_id,
-            'state' => $this->state,
+            'categories.id' => $this->id,
+            'categories.parent_id' => $this->parent_id,
+            'categories.state' => $this->state,
             'categories.user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'categories.created_at' => $this->created_at,
+            'categories.updated_at' => $this->updated_at
         ]);
         
         $query->leftJoin('categories parent', 'parent.id = categories.parent_id')->all();
         
         
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description])
+        $query->andFilterWhere(['like', 'categories.name', $this->name])
+            ->andFilterWhere(['like', 'categories.description', $this->description])
             ->andFilterWhere(['like', 'parent.name', $this->getAttribute('parent.name')]);
 
         //$query->andFilterWhere(['like', 'parent.name', $this->getAttribute('parent.name')]);

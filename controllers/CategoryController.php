@@ -8,6 +8,7 @@ use app\models\Search\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -66,11 +67,14 @@ class CategoryController extends Controller
     {
         $model = new Category();
 
+        $parent = ArrayHelper::map($model::find()->all(), 'id', 'name');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', [
             'model' => $model,
+            'parent' => $parent
 
         ]);
     }

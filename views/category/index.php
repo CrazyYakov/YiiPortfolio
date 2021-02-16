@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Описание',
                 'attribute' => 'description',
             ],
+
             [
                 'label' => 'Родитель категории',
                 'attribute' => 'parent.name',
@@ -44,9 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Состояние',
                 'attribute' => 'state',
                 'filter' =>  [
-                    '0' => 'Неактивынй',
+                    '0' => 'Неактивный',
                     '1' => 'Активный',
                 ],
+                'value' => function($model){
+                    return $model->state ? 'Активный' : 'Неактивный';
+                }
             ],
 
             //'user_id',
