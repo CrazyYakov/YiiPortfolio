@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Image;
 use app\models\Portfolio;
-use app\models\Search\PortfolioSearch;
+use app\models\search\PortfolioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -21,7 +23,7 @@ class PortfolioController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -66,12 +68,26 @@ class PortfolioController extends Controller
     {
         $model = new Portfolio();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelImage = new Image();
+
+
+        if ($modelImage->imageFile = UploadedFile::getInstance($modelImage, 'imageFile')) {
+
+            $model->image_id = $modelImage->upload() ?  $modelImage->id : null;
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            else {
+                var_dump($model->getErrors());
+                return true;
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelImage' => $modelImage,
         ]);
     }
 

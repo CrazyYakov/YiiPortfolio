@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
 
 <div class="portfolio-form">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(/*['options' => ['enctype' => 'multipart/form-data']]*/); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -24,16 +24,11 @@ use yii\helpers\ArrayHelper;
         ]
     )->label('Имя категории') ?>
 
-    <?= $form->field($model, 'image_id')->fileInput(
-        [
-            'multiple' => true,
-            'accept' => 'image/*'
-        ],
-    )->label('Добавить изображение') ?>
+    <?= $form->field($modelImage, 'imageFile')->fileInput()->label('Добавить изображение') ?>
 
     <?= $form->field($model, 'state')->dropDownList([0 => 'активный', 1 => 'неактивный'])->label('Состояние') ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
