@@ -20,9 +20,15 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'category_id')->dropDownList(
         [
             '' => 'null',
-            ArrayHelper::map(app\models\Category::find()->all(), 'id', 'name'),
+            $modelCategory,
         ]
     )->label('Имя категории') ?>
+
+    <?php if (isset($encodeFile)) { ?>
+
+        <?= Html::img('data:' . $modelImage['type'] . ';base64,' . $encodeFile) ?>
+
+    <?php } ?>
 
     <?= $form->field($modelImage, 'imageFile')->fileInput()->label('Добавить изображение') ?>
 

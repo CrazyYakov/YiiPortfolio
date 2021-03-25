@@ -29,8 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'link',
-            'category_id',
-            'image_id',
+            [
+                'label' => 'Категория',
+                'attribute' => 'category.name',
+            ],
+
+            // Создать кнопку которая будет при активации открывать картинку
+            [
+                //'urlManager',
+                //'class' => 'yii\grid\ActionColumn',
+                'attribute' => 'image.name',
+                //''
+            ],        
             //'description:ntext',
             //'state',
             //'created_at',
