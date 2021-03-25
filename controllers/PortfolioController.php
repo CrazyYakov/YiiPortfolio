@@ -5,10 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Image;
 use app\models\Portfolio;
+use app\models\Category;
 use app\models\search\PortfolioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
+use yii\helpers\ArrayHelper;
 use yii\filters\VerbFilter;
 
 /**
@@ -70,6 +72,7 @@ class PortfolioController extends Controller
 
         $modelImage = new Image();
 
+        $modelCategory = ArrayHelper::map((new Category())::find()->all(), 'id', 'name');
 
         if ($modelImage->imageFile = UploadedFile::getInstance($modelImage, 'imageFile')) {
 
@@ -78,8 +81,7 @@ class PortfolioController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
                 return $this->redirect(['view', 'id' => $model->id]);
-            }
-            else {
+            } else {
                 var_dump($model->getErrors());
                 return true;
             }
@@ -88,6 +90,7 @@ class PortfolioController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelImage' => $modelImage,
+            'modelCategory' => $modelCategory,
         ]);
     }
 
@@ -102,12 +105,35 @@ class PortfolioController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelCategory = ArrayHelper::map((new Category())::find()->all(), 'id', 'name');
+
+        $modelImage = Image::find()->where(['id' => $model->image_id])->one();
+
+        //echo yii\helpers\Html::img('@data:' . $imageFile['type'] . ';base64,' . base64_encode($imageFile['image']));
+        // echo '<img src="data:' . $findImage['type'] . ';base64,' . $imageFile . '" >';
+        // return true;
+
+        // $imageFile = base64_encode($findImage['image']);
+
+        // $model->image_id = $modelImage->upload() ?  $modelImage->id : null;
+
+        if ($modelImage->imageFile = UploadedFile::getInstance($modelImage, 'imageFile')) {
+
+            if ($modelImage->upload()) echo "update image";
+
+            // $model->image_id = $modelImage->upload() ?  $modelImage->id : $model;
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelCategory' => $modelCategory,
+            'modelImage' => $modelImage,
+            'encodeFile' => base64_encode($modelImage['image']),
         ]);
     }
 
