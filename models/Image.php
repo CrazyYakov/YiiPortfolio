@@ -98,7 +98,7 @@ class Image extends ActiveRecord
             $this->size = (string) $this->imageFile->size;
             $this->type = $this->imageFile->type;
             $this->name = $this->imageFile->name;
-            $this->image = addslashes(file_get_contents($this->imageFile->tempName));
+            $this->image = file_get_contents($this->imageFile->tempName);
             $this->user_id = (int) Yii::$app->user->id;
 
             return $this->validate() ? $this->save() : false;
