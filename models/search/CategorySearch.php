@@ -74,7 +74,6 @@ class CategorySearch extends Category
             ->andFilterWhere(['like', 'categories.description', $this->description])
             ->andFilterWhere(['like', 'parent.name', $this->getAttribute('parent.name')]);
 
-        //$query->andFilterWhere(['like', 'parent.name', $this->getAttribute('parent.name')]);
 
         $dataProvider->sort->attributes['parent.name'] = [
             'asc' => ['parent.name' => SORT_ASC],

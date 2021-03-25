@@ -17,8 +17,8 @@ class PortfolioSearch extends Portfolio
     public function rules()
     {
         return [
-            [['id', 'category_id', 'image_id', 'state', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'link', 'description'], 'safe'],
+            [['id', 'image_id', 'state', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'link', 'description', 'category.name'], 'safe'],
         ];
     }
 
@@ -58,18 +58,32 @@ class PortfolioSearch extends Portfolio
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'category_id' => $this->category_id,
-            'image_id' => $this->image_id,
-            'state' => $this->state,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'portfolio.id' => $this->id,
+            'portfolio.category_id' => $this->category_id,
+            'portfolio.image_id' => $this->image_id,
+            'portfolio.state' => $this->state,
+            'portfolio.created_at' => $this->created_at,
+            'portfolio.updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'link', $this->link])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->leftJoin('categories category', 'category.id = portfolio.category_id')->all();
+
+        $query->andFilterWhere(['like', 'portfolio.name', $this->name])
+            ->andFilterWhere(['like', 'portfolio.link', $this->link])
+            ->andFilterWhere(['like', 'portfolio.description', $this->description])
+            ->andFilterWhere(['like', 'category.name', $this->getAttribute('category.name')]);
+
+
+        $dataProvider->sort->attributes['category.name'] = [
+            'asc' => ['category.name' => SORT_ASC],
+            'desc' => ['category.name' => SORT_DESC],
+        ];
 
         return $dataProvider;
+    }
+
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['category.name']);
     }
 }
