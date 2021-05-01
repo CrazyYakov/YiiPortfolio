@@ -26,7 +26,7 @@ use yii\helpers\ArrayHelper;
 
     <?php if (isset($encodeFile)) { ?>
 
-        <?= Html::img('data:' . $modelImage['type'] . ';base64,' . $encodeFile) ?>
+        <?= Html::img('data:' . $modelImage['type'] . ';base64,' . $encodeFile, ['width' => '20%', 'height' => '20%']) ?>
 
     <?php } ?>
 

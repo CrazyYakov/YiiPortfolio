@@ -33,11 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'link',
             'category_id',
-            'image_id',
+            'image_id' => [
+                'label' => 'image',
+                'value' => ('data:' . $modelImage['type'] . ';base64,' . $encodeFile),
+                'format' => ['image', ['width' => '50%', 'height' => 'auto']],
+                
+            ],
             'description:ntext',
             'state',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 

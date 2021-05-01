@@ -36,8 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // Создать кнопку которая будет при активации открывать картинку
             [
-                //'urlManager',
-                //'class' => 'yii\grid\ActionColumn',
+                'label' => 'картинка',
                 'attribute' => 'image.name',
                 //''
             ],        
