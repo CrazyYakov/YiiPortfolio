@@ -113,3 +113,10 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.main-navbar > li > a{
+    color: #FDFDFD;
+}
+.main-navbar > li > form> button{
+    color: #FDFDFD;
+}
