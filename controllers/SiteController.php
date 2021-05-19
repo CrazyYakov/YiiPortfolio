@@ -9,7 +9,10 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Image;
+use app\models\Portfolio;
 use app\models\SignupForm;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -29,7 +32,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -79,7 +82,24 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $portfolio = Portfolio::find()
+            ->leftJoin(Image::tableName() . ' as i', '`i`.`id` = `portfolio`.`image_id`')
+            ->select([
+                'portfolio.*',
+                'i.*'
+            ])
+            ->where(['state' => 1]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' =>  $portfolio,
+            'pagination' => [
+                'pageSize' => 6
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
