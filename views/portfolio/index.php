@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //''
             ],        
             //'description:ntext',
-            //'state',
+            'state',
             //'created_at',
             //'updated_at',
 

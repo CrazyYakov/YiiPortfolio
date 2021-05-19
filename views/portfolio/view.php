@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'image',
                 'value' => ('data:' . $modelImage['type'] . ';base64,' . $encodeFile),
                 'format' => ['image', ['width' => '50%', 'height' => 'auto']],
-                
+
             ],
             'description:ntext',
             'state',
