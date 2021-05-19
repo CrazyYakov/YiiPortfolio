@@ -117,11 +117,10 @@ class PortfolioController extends Controller
         if ($modelImage->imageFile = UploadedFile::getInstance($modelImage, 'imageFile')) {
 
             $modelImage->upload();
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
