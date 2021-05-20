@@ -57,8 +57,11 @@ $this->title = 'My Yii Application';
             ]);
             ?>
         </div>
+        <div class="text-center center-block" id="btn-my-works">
+           О себе
+        </div>
     </div>
-    <div class="third-str">
-
+    <div class=" container third-str">
+        <p>О себе</p>
     </div>
 </div>
