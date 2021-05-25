@@ -1,53 +1,64 @@
 <?php
 
+use kartik\icons\Icon;
+use yii\debug\models\timeline\DataProvider;
+use yii\grid\GridView;
+use yii\helpers\Html;
+
+//Icon::map($this, Icon::EL);
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <div class="container  first-str">
+        <div class="text-start h2 center-block" style="width: 50%;">
+            <p style=" font-family:Georgia; font-weight: bold;"> Заказ на создание
+                <br> веб-сайта стал еще удобнее
+            </p>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+            <form action="" method="post" class="form-request">
+                <div class="input-group mb-3">
+                    <input class="form-control" type="username" placeholder="Введите ФИО">
+                    <input class="form-control" type="email" placeholder="Введите Email">
+                    <textarea class="form-control" style="height: 150px;" type="textarea" placeholder="Введите сообщение"></textarea>
+                    <input class="btn btn-default" type="submit" value="отправить">
+                </div>
+            </form>
+            <br>
+            <!-- <div class="icons row text-center" style="height: 40px;">
+                VK
+                Instagram
+                Github
+                Telegram
+            </div> -->
         </div>
+        <div class="text-center center-block" id="btn-my-works">
+            мои работы
+        </div>
+
+    </div>
+    <div class="container second-str">
+        <p>Мои работы</p>
+        <div class="works">
+            <?php
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    [
+                        'label' => 'image',
+                        'value' => function ($data) {
+                            return ('data:' . $data->image->type . ';base64,' . base64_encode($data->image->image));
+                        },
+                        'format' => ['image', ['width' => '100px', 'height' => 'auto']],
+                    ]
+                ]
+            ]);
+            ?>
+        </div>
+    </div>
+    <div class="third-str">
 
     </div>
 </div>

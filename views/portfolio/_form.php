@@ -26,13 +26,13 @@ use yii\helpers\ArrayHelper;
 
     <?php if (isset($encodeFile)) { ?>
 
-        <?= Html::img('data:' . $modelImage['type'] . ';base64,' . $encodeFile) ?>
+        <?= Html::img('data:' . $modelImage['type'] . ';base64,' . $encodeFile, ['width' => '20%', 'height' => '20%']) ?>
 
     <?php } ?>
 
     <?= $form->field($modelImage, 'imageFile')->fileInput()->label('Добавить изображение') ?>
 
-    <?= $form->field($model, 'state')->dropDownList([0 => 'активный', 1 => 'неактивный'])->label('Состояние') ?>
+    <?= $form->field($model, 'state')->dropDownList([1 => 'активный', 0 => 'неактивный'])->label('Состояние') ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание') ?>
 

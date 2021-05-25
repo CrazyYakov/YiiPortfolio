@@ -56,8 +56,13 @@ class PortfolioController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $modelImage = Image::find()->where(['id' => $model->image_id])->one();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modelImage' => $modelImage,
+            'encodeFile' => base64_encode($modelImage['image']),
         ]);
     }
 
@@ -109,24 +114,13 @@ class PortfolioController extends Controller
 
         $modelImage = Image::find()->where(['id' => $model->image_id])->one();
 
-        //echo yii\helpers\Html::img('@data:' . $imageFile['type'] . ';base64,' . base64_encode($imageFile['image']));
-        // echo '<img src="data:' . $findImage['type'] . ';base64,' . $imageFile . '" >';
-        // return true;
-
-        // $imageFile = base64_encode($findImage['image']);
-
-        // $model->image_id = $modelImage->upload() ?  $modelImage->id : null;
-
         if ($modelImage->imageFile = UploadedFile::getInstance($modelImage, 'imageFile')) {
 
-            if ($modelImage->upload()) echo "update image";
+            $modelImage->upload();
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            // $model->image_id = $modelImage->upload() ?  $modelImage->id : $model;
-
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

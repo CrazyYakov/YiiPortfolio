@@ -31,26 +31,26 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::$app->name,
-            'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar-inverse navbar-fixed-top',
+                'class' => ' navbar-fixed-top ',
+                'style' => ['background' => '#1BA1E2',]
             ],
         ]);
         echo  Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
+            'options' => ['class' => 'navbar-nav navbar-left main-navbar'],
             'items' => [
                 ['label' => 'Главная', 'url' => ['/site/index']],
-                ['label' => 'Админка', 'url' => ['/site/admin']],                
+                ['label' => 'Админка', 'url' => ['/site/admin']],
                 ['label' => 'Регистрация', 'url' => ['site/signup'], 'visible' => Yii::$app->user->isGuest],
                 Yii::$app->user->isGuest ? (['label' => 'Войти', 'url' => ['/site/login']]) : ('<li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
                         'Выйти (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'btn btn-link logout']
+                        ['class' => 'btn btn-link logout',]
                     )
                     . Html::endForm()
-                    . '</li>')
+                    . '</li>'),
+
             ],
         ]);
         NavBar::end();
