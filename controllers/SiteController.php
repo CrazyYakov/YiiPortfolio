@@ -89,7 +89,7 @@ class SiteController extends Controller
                 'i.*'
             ])
             ->where(['state' => 1]);
-        
+
         $dataProvider = new ActiveDataProvider([
             'query' =>  $portfolio,
             'pagination' => [
@@ -97,11 +97,12 @@ class SiteController extends Controller
             ],
         ]);
 
+        //return var_dump($dataProvider);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    
     /**
      * Login action.
      *

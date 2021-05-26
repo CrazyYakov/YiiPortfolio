@@ -12,7 +12,7 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="container  first-str">
+    <div class="first-str">
         <div class="text-start h2 center-block" style="width: 50%;">
             <p style=" font-family:Georgia; font-weight: bold;"> Заказ на создание
                 <br> веб-сайта стал еще удобнее
@@ -39,9 +39,10 @@ $this->title = 'My Yii Application';
         </div>
 
     </div>
-    <div class="container second-str">
+    <div class=" second-str">
         <p>Мои работы</p>
         <div class="works">
+
             <?php
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
@@ -51,7 +52,7 @@ $this->title = 'My Yii Application';
                         'value' => function ($data) {
                             return ('data:' . $data->image->type . ';base64,' . base64_encode($data->image->image));
                         },
-                        'format' => ['image', ['width' => '100px', 'height' => 'auto']],
+                        'format' => ['image', ['width' => '200px', 'height' => '200px']],
                     ]
                 ]
             ]);
@@ -59,6 +60,6 @@ $this->title = 'My Yii Application';
         </div>
     </div>
     <div class="third-str">
-
+        <p>О себе</p>
     </div>
 </div>

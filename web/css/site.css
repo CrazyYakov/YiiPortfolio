@@ -148,3 +148,29 @@ a.desc:after {
     font-size: 12pt;
     border: solid #0e8088;
 }
+
+.second-str>p {
+    font-weight: bolder;
+    font-size: 12pt;
+    font-family: helvetica;
+}
+
+.summary {
+    display: none;
+}
+
+table.table-bordered {
+    border: none;
+}
+
+table>thead {
+    display: none;
+}
+
+table tbody {
+    display: flex;
+}
+
+table tbody tr {
+    margin-right: 20px;
+}
